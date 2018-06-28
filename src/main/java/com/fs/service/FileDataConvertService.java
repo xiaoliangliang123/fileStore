@@ -60,7 +60,7 @@ public class FileDataConvertService  implements ConvertService{
         String json = (String)obj;
         json = json.replace("\"[{","[{");
         json = json.replace("]\"}","]}");
-        TotalBean<DataBean> totalBean =   JSON.parseObject(json, new TypeReference<TotalBean>() {});
+        TotalBean<DataBean> totalBean =   JSON.parseObject(json, new TypeReference<TotalBean<DataBean>>() {});
         return totalBean;
     }
 
