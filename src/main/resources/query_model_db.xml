@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<connectConfig> 
+<driverName>oracle.jdbc.driver.OracleDriver</driverName>
+<connectionUrl>jdbc:oracle:thin:bjhhtest@//10.0.1.14:1521/hhdb</connectionUrl>
+<username>bjhhtest</username>
+<password>bjhhtest</password>
+</connectConfig>
+</config> 
+
