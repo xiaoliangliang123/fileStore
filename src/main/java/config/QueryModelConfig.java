@@ -7,7 +7,11 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-
+/**
+ * @Auther: WANG_LIANG(XIAO)
+ * @Date: 2018/6/27 15:51
+ * @Description:
+ */
 public class QueryModelConfig {
 
 	public String driverName;

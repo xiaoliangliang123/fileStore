@@ -8,7 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+/**
+ * @Auther: WANG_LIANG(XIAO)
+ * @Date: 2018/6/27 15:51
+ * @Description:
+ */
 public class DBTransaction {
 
 	private static ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();

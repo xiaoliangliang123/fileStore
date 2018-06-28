@@ -2,7 +2,11 @@ package config;
 
 import java.sql.Connection;
 
-
+/**
+ * @Auther: WANG_LIANG(XIAO)
+ * @Date: 2018/6/27 15:51
+ * @Description:
+ */
 public class TransactionManager {
 
 	ThreadLocal<Connection> threadLocalConnection = null;

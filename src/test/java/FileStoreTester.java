@@ -68,15 +68,6 @@ public class FileStoreTester {
 
 
 
-    public void testFileDelete(){
-        System.out.println(  Util.getCurrentTimeOfYYYYMMDDHHMMSS());
-        File file = new File("E:\\data\\2016-2017\\2016-2017");
-        File[] files =  file.listFiles();
-        for(File f:files) {
-            f.delete();
-        }
-    }
-
     @Test
     public void executeDirExcels(){
         ConvertService dcs = new ExcelConvertService();
@@ -88,7 +79,7 @@ public class FileStoreTester {
 
             try {
                 if(!dcs.checkFileFormatIsRight(f.getName()))
-                    throw  new Exception("文件格式不正确");
+                    throw  new Exception("文件格式不正确,只支持excel类型");
 
 
             }catch (Exception e){

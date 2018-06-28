@@ -2,7 +2,11 @@ package config;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+/**
+ * @Auther: WANG_LIANG(XIAO)
+ * @Date: 2018/6/27 15:51
+ * @Description:
+ */
 public class Transaction {
 
 	TransactionManager tm = null;
