@@ -166,7 +166,7 @@ public class DataDao {
         ResultSet rs = null ;
         DataBean db = null;
         try {
-           result.successCount = dblist.size();
+            result.successCount = dblist.size();
             conn = DBTransaction.getQueryModelConnection();
             conn.setAutoCommit(false);
             stat = conn.createStatement();

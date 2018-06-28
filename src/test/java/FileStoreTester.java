@@ -22,8 +22,8 @@ import java.util.List;
 
 public class FileStoreTester {
 
-
     private static Logger log = Logger.getLogger(FileStoreTester.class.getClass());
+
 
     public void testCreateTable(){
 
@@ -31,6 +31,7 @@ public class FileStoreTester {
         dd.initSQLTable();
 
     }
+
 
 
     public void testLog(){
@@ -50,6 +51,21 @@ public class FileStoreTester {
     }
 
 
+    public void testDateConvert(){
+
+         String name = Util.converToStringNumber("2012年4月");
+         System.out.println(name);
+
+    }
+
+
+    public void testGetFileNameNoPrefix(){
+
+        String name = Util.getFileNameNoPrefix("2012-2018.xlsx");
+        System.out.println(name);
+
+    }
+
 
     public void testInitErrorDataDao(){
 
@@ -68,35 +84,10 @@ public class FileStoreTester {
 
 
 
-    public void executeDirExcels(){
-        ConvertService dcs = new ExcelConvertService();
-        File file = new File("E:\\data\\2016-2017\\2016-2017");
-        File[] files =  file.listFiles();
-        Result r = new Result();
-
-        for(File f:files){
-
-            try {
-                if(!dcs.checkFileFormatIsRight(f.getName()))
-                    throw  new Exception("文件格式不正确,只支持excel类型");
-                TotalBean<ExcelDataBean> totalBean = dcs.doFormat(f.getPath());
-
-
-
-            }catch (Exception e){
-                log.error("文件" +f.getPath()+"执行出错  ,本文件终止执行，继续执行下一个文件 ，错误时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
-                log.error("异常信息"+e.getMessage());
-            }
-
-
-
-        }
-    }
-
     /*
     执行txt文件类型数据处理
     */
-    @Test
+
     public void executeDirFiles() throws SQLException, ClassNotFoundException {
 
         ConvertService dcs = new FileDataConvertService();
@@ -110,7 +101,7 @@ public class FileStoreTester {
 
                 if(!dcs.checkFileFormatIsRight(f.getName()))
                     throw  new Exception("文件格式不正确");
-                log.info("开始执行"+f.getPath() +"开始时间"+ Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+                log.info("开始执行"+f.getPath() +",开始时间"+ Util.getCurrentTimeOfYYYYMMDDHHMMSS());
                 Long  start = System.currentTimeMillis();
                 String json =  Util.readFile(f.getPath());
                 TotalBean<DataBean> totalBean = dcs.doFormat(json);

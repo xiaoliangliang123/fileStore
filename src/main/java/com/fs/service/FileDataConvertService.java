@@ -34,7 +34,7 @@ public class FileDataConvertService  implements ConvertService{
         PropertyConfigurator.configure( filePath );
     }
 
-    public Result convertDatas(String dir, String file, List<DataBean>  dblist) throws Exception {
+    public Result convertDatas(String dir, String file, List dblist) throws Exception {
         Connection conn =  DBTransaction.getQueryModelConnection();
         Result result = null;
         try {

@@ -1,5 +1,7 @@
 package config.utl;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -98,5 +100,26 @@ public class Util {
     public static String getCurrentTimeOfYYYYMMDDHHMMSS() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         return df.format(new Date());
+    }
+
+    public static String converToStringNumber(String name) {
+
+        if(name == null || StringUtils.isEmpty(name))
+            return "";
+       String[] names= name.split("年");
+       if(names.length <=1)
+           return name ;
+       String y = names[1].replace("月","");
+       Integer yue = Integer.parseInt(y);
+       if(yue<10)
+           y= "0"+y;
+       return names[0]+y;
+
+    }
+
+    public static String getFileNameNoPrefix(String filename) {
+       int index = filename.lastIndexOf(".");
+       filename = filename.substring(0,index);
+       return filename;
     }
 }
