@@ -4,6 +4,7 @@ import com.fs.dao.DataDao;
 import com.fs.dao.ErrorDao;
 import com.fs.dao.ErrorDataDao;
 import com.fs.service.ConvertService;
+import com.fs.service.ExcelConvertService;
 import com.fs.service.FileDataConvertService;
 import com.fs.service.Result;
 import config.QueryModelConfig;
@@ -78,17 +79,30 @@ public class FileStoreTester {
 
     @Test
     public void executeDirExcels(){
-        ConvertService dcs = new FileDataConvertService();
+        ConvertService dcs = new ExcelConvertService();
         File file = new File("E:\\data\\2016-2017\\2016-2017");
         File[] files =  file.listFiles();
         Result r = new Result();
 
         for(File f:files){
 
+            try {
+                if(!dcs.checkFileFormatIsRight(f.getName()))
+                    throw  new Exception("文件格式不正确");
+
+
+            }catch (Exception e){
+                log.error("文件" +f.getPath()+"执行出错  ,本文件终止执行，继续执行下一个文件 ，错误时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+                log.error("异常信息"+e.getMessage());
+            }
+
+
 
         }
     }
 
+    /*
+    */
     @Test
     public void executeDirFiles() throws SQLException, ClassNotFoundException {
 
@@ -100,6 +114,9 @@ public class FileStoreTester {
         for(File f:files){
 
             try {
+
+                if(!dcs.checkFileFormatIsRight(f.getName()))
+                    throw  new Exception("文件格式不正确");
                 log.info("开始执行"+f.getPath() +"开始时间"+ Util.getCurrentTimeOfYYYYMMDDHHMMSS());
                 Long  start = System.currentTimeMillis();
                 String json =  Util.readFile(f.getPath());

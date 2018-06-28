@@ -13,10 +13,14 @@ import java.util.List;
  */
 public interface ConvertService {
 
+    //执行数据处理
     public Result convertDatas(String dir, String file, List<DataBean> dblist) throws Exception;
 
-
+    //返回能执行的bean
     public <T> TotalBean<T> doFormat(Object object);
+
+    //检查文件格式是否正确
+    boolean checkFileFormatIsRight(String prefix);
 
 
 }

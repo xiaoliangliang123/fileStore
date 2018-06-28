@@ -23,4 +23,9 @@ public class ExcelConvertService  implements ConvertService{
     public <T> TotalBean<T> doFormat(Object object) {
         return null;
     }
+
+    public boolean checkFileFormatIsRight(String prefix) {
+
+        return true;
+    }
 }

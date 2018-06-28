@@ -50,6 +50,11 @@ public class FileDataConvertService  implements ConvertService{
         return result;
     }
 
+    public boolean checkFileFormatIsRight(String prefix) {
+
+        return true;
+    }
+
     public TotalBean doFormat(Object obj) {
 
         String json = (String)obj;
