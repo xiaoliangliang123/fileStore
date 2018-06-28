@@ -1,9 +1,7 @@
 package com.fs.dao;
 
-import com.fs.service.DataConvertService;
-import com.fs.service.Result;
-import com.sun.deploy.util.StringUtils;
-import config.DBTransaction;
+ import com.fs.service.Result;
+ import config.DBTransaction;
 import config.QueryModelConfig;
 import config.Util;
 import dto.DataBean;
@@ -39,7 +37,7 @@ public class DataDao {
     public static final String cjsj_char = "cjsj_char";
 
     ErrorDataDao edd = new ErrorDataDao();
-    private static Logger log = Logger.getLogger(DataConvertService.class.getClass());
+    private static Logger log = Logger.getLogger(DataDao.class.getClass());
 
 
     public DataDao(){

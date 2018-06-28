@@ -1,10 +1,13 @@
 package com.fs.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.fs.dao.DataDao;
 import com.fs.dao.ErrorDao;
 import config.DBTransaction;
 import config.QueryModelConfig;
 import dto.DataBean;
+import dto.TotalBean;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -16,22 +19,22 @@ import java.util.List;
 /**
  * @Auther: WANG_LIANG(XIAO)
  * @Date: 2018/6/27 09:50
- * @Description:
+ * @Description: 文件数据类型处理类
  */
-public class DataConvertService {
+public class FileDataConvertService  implements ConvertService{
 
 
 
     DataDao dd = new DataDao();
     ErrorDao ed = new ErrorDao();
 
-    public DataConvertService(){
+    public FileDataConvertService(){
         String filePath = QueryModelConfig.class.getClassLoader()
                 .getResource("logger.properties").getPath();
         PropertyConfigurator.configure( filePath );
     }
 
-    public Result convertDatas(String dir, String file, List<DataBean> dblist) throws SQLException, ClassNotFoundException {
+    public Result convertDatas(String dir, String file, List<DataBean>  dblist) throws Exception {
         Connection conn =  DBTransaction.getQueryModelConnection();
         Result result = null;
         try {
@@ -40,10 +43,20 @@ public class DataConvertService {
 
             e.printStackTrace();
             ed.addErrorData(file);
+            throw  new Exception("更新异常",e);
         }finally {
             DBTransaction.close(conn);
         }
         return result;
+    }
+
+    public TotalBean doFormat(Object obj) {
+
+        String json = (String)obj;
+        json = json.replace("\"[{","[{");
+        json = json.replace("]\"}","]}");
+        TotalBean<DataBean> totalBean =   JSON.parseObject(json, new TypeReference<TotalBean>() {});
+        return totalBean;
     }
 
     public Result convert(String dir, String file, List<DataBean> dblist) throws SQLException, ClassNotFoundException {

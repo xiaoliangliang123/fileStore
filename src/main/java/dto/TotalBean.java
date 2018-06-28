@@ -7,11 +7,11 @@ import java.util.List;
  * @Date: 2018/6/27 08:42
  * @Description:
  */
-public class TotalBean {
+public class TotalBean<T> {
 
     private  Integer jls ;
 
-    private List<DataBean> datalist;
+    private List<T> datalist;
 
     public Integer getJls() {
         return jls;
@@ -21,11 +21,11 @@ public class TotalBean {
         this.jls = jls;
     }
 
-    public List<DataBean> getDatalist() {
+    public List<T> getDatalist() {
         return datalist;
     }
 
-    public void setDatalist(List<DataBean> datalist) {
+    public void setDatalist(List<T> datalist) {
         this.datalist = datalist;
     }
 }

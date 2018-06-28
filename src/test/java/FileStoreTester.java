@@ -1,10 +1,10 @@
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+ import com.alibaba.fastjson.TypeReference;
 import com.fs.dao.DataDao;
 import com.fs.dao.ErrorDao;
 import com.fs.dao.ErrorDataDao;
-import com.fs.service.DataConvertService;
+import com.fs.service.ConvertService;
+import com.fs.service.FileDataConvertService;
 import com.fs.service.Result;
 import config.QueryModelConfig;
 import config.Util;
@@ -77,34 +77,50 @@ public class FileStoreTester {
     }
 
     @Test
-    public void readDirFilesJson() throws SQLException, ClassNotFoundException {
-
-        DataConvertService dcs = new DataConvertService();
+    public void executeDirExcels(){
+        ConvertService dcs = new FileDataConvertService();
         File file = new File("E:\\data\\2016-2017\\2016-2017");
         File[] files =  file.listFiles();
         Result r = new Result();
 
         for(File f:files){
 
-            log.info("开始执行"+f.getPath() +"开始时间"+ Util.getCurrentTimeOfYYYYMMDDHHMMSS());
-            Long  start = System.currentTimeMillis();
-            String json =  Util.readFile(f.getPath());
-            json = json.replace("\"[{","[{");
-            json = json.replace("]\"}","]}");
-            TotalBean totalBean =   JSON.parseObject(json, new TypeReference<TotalBean>() {});
 
-            List<DataBean> dblist = totalBean.getDatalist();
-            if(dblist.isEmpty())
-                break ;
-            Result result = dcs.convertDatas(f.getParentFile().getName(),f.getPath(),dblist);
-            r.totalCount = r.totalCount + dblist.size();
-            r.successCount = r.successCount + result.successCount;
-            r.failedCount = r.failedCount + result.failedCount;
-            f.delete();
-           Long  end = System.currentTimeMillis();
-           Long useTime = end - start;
-           log.info(f.getPath()+"执行完成,该文件已删除，共 "+ dblist.size() +"条"+"，成功："+result.successCount +"条，失败"+result.failedCount+"条");
-           log.info("本次用时"+useTime +" ,结束时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+        }
+    }
+
+    @Test
+    public void executeDirFiles() throws SQLException, ClassNotFoundException {
+
+        ConvertService dcs = new FileDataConvertService();
+        File file = new File("E:\\data\\2016-2017\\2016-2017");
+        File[] files =  file.listFiles();
+        Result r = new Result();
+
+        for(File f:files){
+
+            try {
+                log.info("开始执行"+f.getPath() +"开始时间"+ Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+                Long  start = System.currentTimeMillis();
+                String json =  Util.readFile(f.getPath());
+                TotalBean<DataBean> totalBean = dcs.doFormat(json);
+                List<DataBean> dblist = totalBean.getDatalist();
+                if(dblist.isEmpty())
+                    break ;
+                Result result = dcs.convertDatas(f.getParentFile().getName(),f.getPath(),dblist);
+                r.totalCount = r.totalCount + dblist.size();
+                r.successCount = r.successCount + result.successCount;
+                r.failedCount = r.failedCount + result.failedCount;
+                f.delete();
+                Long  end = System.currentTimeMillis();
+                Long useTime = end - start;
+                log.info(f.getPath()+"执行完成,该文件已删除，共 "+ dblist.size() +"条"+"，成功："+result.successCount +"条，失败"+result.failedCount+"条");
+                log.info("本次用时"+useTime +" ,结束时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+            }catch (Exception e){
+                log.error("文件" +f.getPath()+"执行出错  ,本文件终止执行，继续执行下一个文件 ，错误时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
+                log.error("异常信息"+e.getMessage());
+            }
+
         }
         log.info( "全部执行完成，共 "+ r.totalCount +"条"+"，成功："+r.successCount +"条，失败"+r.failedCount+"条");
 
