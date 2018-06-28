@@ -1,5 +1,3 @@
-import com.alibaba.fastjson.JSON;
- import com.alibaba.fastjson.TypeReference;
 import com.fs.dao.DataDao;
 import com.fs.dao.ErrorDao;
 import com.fs.dao.ErrorDataDao;
@@ -8,8 +6,9 @@ import com.fs.service.ExcelConvertService;
 import com.fs.service.FileDataConvertService;
 import com.fs.service.Result;
 import config.QueryModelConfig;
-import config.Util;
+import config.utl.Util;
 import dto.DataBean;
+import dto.ExcelDataBean;
 import dto.TotalBean;
 
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ public class FileStoreTester {
 
     }
 
-    @Test
+
     public void testLog(){
         String filePath = QueryModelConfig.class.getClassLoader()
                 .getResource("logger.properties").getPath();
@@ -68,7 +67,7 @@ public class FileStoreTester {
 
 
 
-    @Test
+
     public void executeDirExcels(){
         ConvertService dcs = new ExcelConvertService();
         File file = new File("E:\\data\\2016-2017\\2016-2017");
@@ -80,6 +79,8 @@ public class FileStoreTester {
             try {
                 if(!dcs.checkFileFormatIsRight(f.getName()))
                     throw  new Exception("文件格式不正确,只支持excel类型");
+                TotalBean<ExcelDataBean> totalBean = dcs.doFormat(f.getPath());
+
 
 
             }catch (Exception e){
@@ -93,8 +94,9 @@ public class FileStoreTester {
     }
 
     /*
+    执行txt文件类型数据处理
     */
-    @Test
+
     public void executeDirFiles() throws SQLException, ClassNotFoundException {
 
         ConvertService dcs = new FileDataConvertService();

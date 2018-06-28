@@ -1,7 +1,7 @@
 package com.fs.dao;
 
 import config.DBTransaction;
-import config.Util;
+import config.utl.Util;
 import dto.DataBean;
 
 import java.sql.Connection;

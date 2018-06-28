@@ -3,7 +3,7 @@ package com.fs.dao;
  import com.fs.service.Result;
  import config.DBTransaction;
 import config.QueryModelConfig;
-import config.Util;
+import config.utl.Util;
 import dto.DataBean;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -171,30 +171,7 @@ public class DataDao {
             conn.setAutoCommit(false);
             stat = conn.createStatement();
             Iterator<DataBean> dbIterator = dblist.iterator();
-            /*
-            String[] ids = new String[dblist.size()];
-            int i = 0;
-            while(dbIterator.hasNext()) {
 
-                DataBean db = dbIterator.next();
-
-
-                String sql = " select  id   from sfyh_yh  where yhbh = '" + db.yhbh + "'";
-                rs = stat.executeQuery(sql);
-
-                if (rs.next()) {
-
-                    //throw new Exception("从sfyh_yh表 查询不到 id ，yhbh：" + db.yhbh);
-                    String yhbhId = rs.getString("id");
-                    ids[i++] = yhbhId;
-                }else {
-                    System.out.println("从sfyh_yh表 查询不到 id ，yhbh： "+ db.yhbh + " ,i :"+i);
-                    ids[i++] = "";
-                }
-                rs.close();
-
-            }
-*/
             stat = conn.createStatement();
             dbIterator = dblist.iterator();
             String sql = null;
@@ -221,10 +198,9 @@ public class DataDao {
             conn.commit();
 
         }catch (Exception e){
-            e.printStackTrace();
             System.out.println("插入数据出错 file :"+file);
             edd.addData(db);
-
+            throw  new Exception(e);
         } finally {
             DBTransaction.close(stat, conn,rs);
         }
