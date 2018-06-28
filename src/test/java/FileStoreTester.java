@@ -96,7 +96,7 @@ public class FileStoreTester {
     /*
     执行txt文件类型数据处理
     */
-
+    @Test
     public void executeDirFiles() throws SQLException, ClassNotFoundException {
 
         ConvertService dcs = new FileDataConvertService();
