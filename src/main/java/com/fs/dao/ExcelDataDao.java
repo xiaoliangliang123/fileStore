@@ -61,7 +61,7 @@ public class ExcelDataDao {
                      log.error(" error 该条插入失败 用户编号为空 ，所在文件  :"+file +" , ");
                 }
                  else {
-                    sql = " insert into " + TABLE_NAME + "  (YHBH,GRND,YF,BJYL,DYYL)" + "  values ('" + db.getYhbh() + "','" + dir+ "','"+db.getYl()+"',"+db.getBjjyyrl()+","+db.getByyyrl()+")";
+                    sql = " insert into " + TABLE_NAME + "  (YHBH,GRND,YF,BJYL,DYYL)" + "  values ('" + db.getYhbh() + "','" + dir+ "','"+db.getYf()+"',"+db.getBjjyyrl()+","+db.getByyyrl()+")";
                     stat.addBatch(sql);
                 }
             }

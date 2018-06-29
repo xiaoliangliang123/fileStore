@@ -49,7 +49,7 @@ public class ExcelStoreTester {
         testLog();
 
         ConvertService dcs = new ExcelConvertService();
-        File file = new File("E:\\data");
+        File file = new File("E:\\data\\excels");
         File[] files =  file.listFiles();
         Result r = new Result();
 
@@ -72,10 +72,12 @@ public class ExcelStoreTester {
                 f.delete();
                 Long  end = System.currentTimeMillis();
                 Long useTime = end - start;
+                log.info(f.getPath()+"执行完成,该文件已删除，共 "+ dblist.size() +"条"+"，成功："+result.successCount +"条，失败"+result.failedCount+"条");
+                log.info("本次用时"+useTime +" ,结束时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
             }catch (Exception e){
                 e.printStackTrace();
                 log.error("文件" +f.getPath()+"执行出错  ,本文件终止执行，继续执行下一个文件 ，错误时间："+Util.getCurrentTimeOfYYYYMMDDHHMMSS());
-                log.error("异常信息"+e.getMessage());
+
             }
 
 

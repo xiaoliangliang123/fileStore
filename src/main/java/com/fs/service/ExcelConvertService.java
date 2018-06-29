@@ -7,6 +7,7 @@ import config.utl.Util;
 import dto.DataBean;
 import dto.ExcelDataBean;
 import dto.TotalBean;
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -22,6 +23,7 @@ import java.util.*;
  */
 public class ExcelConvertService  implements ConvertService{
 
+    private static Logger log = Logger.getLogger(ExcelConvertService.class.getClass());
     ExcelDataDao edd = new ExcelDataDao();
 
     public Result convertDatas(String dir, String file, List dblist) throws Exception {
@@ -29,7 +31,7 @@ public class ExcelConvertService  implements ConvertService{
         Connection conn =  DBTransaction.getQueryModelConnection();
         Result result = null;
         try {
-            dblist = dblist.subList(0,1000);
+
             result = edd.addDatas(dir,file,dblist);
         }catch (Exception e){
             e.printStackTrace();
@@ -113,11 +115,12 @@ public class ExcelConvertService  implements ConvertService{
             Map<String,String> map = lmapIterator.next();
             excelDataBean.setYhbh(map.get(ExcelDataBean.YHBH));
             excelDataBean.setYhmc(map.get(ExcelDataBean.YHMC));
-            excelDataBean.setBjjyyrl(map.get(ExcelDataBean.BJJYYRL));
+            excelDataBean.setByyyrl(map.get(ExcelDataBean.BJJYYRL));
             excelDataBean.setBjjyyrl(map.get(ExcelDataBean.BYYYRL));
             excelDataBean.setCs(map.get(ExcelDataBean.CS));
             excelDataBean.setJjfs(map.get(ExcelDataBean.JJFS));
             excelDataBean.setYhdz(map.get(ExcelDataBean.YHDZ));
+            excelDataBean.setYf(map.get(ExcelDataBean.GRND));
             excelDataBeans.add(excelDataBean);
         }
         return excelDataBeans;

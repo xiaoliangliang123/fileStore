@@ -27,6 +27,16 @@ public class ExcelDataBean {
     public  String cs ;
     public  String yl ;
 
+    public String getYf() {
+        return yf;
+    }
+
+    public void setYf(String yf) {
+        this.yf = yf;
+    }
+
+    public  String yf ;
+
     public String getYl() {
         return yl;
     }
